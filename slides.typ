@@ -41,6 +41,11 @@
   ),
   body,
 )
+#let plain-focus-slide(align: horizon + center, body) = _focus-slide(
+  align: align,
+  config: config-page(fill: rgb("#fcfcfa")),
+  body,
+)
 
 #show: metropolyst-theme.with(
   font: ("Roboto",),
@@ -48,7 +53,7 @@
   header-background-color: rgb("#1c58a1"),
   focus-background-color: rgb("#dbdce5"),
   focus-text-color: rgb("#1c58a1"),
-  main-background-color: rgb("#ffffff"),
+  main-background-color: rgb("#fcfcfa"),
   main-text-color: rgb("#333333"),
   progress-bar-background: rgb(172, 193, 218),
   config-info(
@@ -89,10 +94,9 @@
   #include "figures/data-model.typ"
 ]
 
-#focus-slide[
-  If you are squeamish, look away now.
+#plain-focus-slide[
+  #place(center + horizon, dy: 10pt, image("images/look away now.png", height: 160%))
 ]
-
 
 == The (horrifying!) in-memory storage mechanism
 
@@ -194,29 +198,3 @@
 
   Here, trading efficiency for simplicity made the system easier to build, reason about, and maintain.
 ]
-
-// Focus slide for emphasis
-
-== Configuration options, and a long slide title with font size automatically scaled to fit on one line
-
-These are the default styles for *bold*, #alert[alert], and #link("https://typst.app")[hyperlink] text.
-
-View the #link("https://github.com/benzipperer/metropolyst")[documentation] for all configuration options.
-
-=== Example
-
-```typst
-#show: metropolyst-theme.with(
-  font: ("Roboto",),                       // Modern sans-serif
-  font-size: 22pt,                         // Slightly larger text
-  accent-color: rgb("#10b981"),            // Emerald accent
-  hyperlink-color: rgb("#0ea5e9"),         // Sky blue links
-  header-background-color: rgb("#0f172a"), // Slate dark header
-)
-#set strong(delta: 300)                    // Bolder bold text
-```
-
-#text(
-  font: "Roboto",
-  size: 22pt,
-)[These are the custom styles for #text(weight: "bold")[*bold*], #text(fill: rgb("#10b981"))[alert], and #link("https://typst.app")[#text(fill: rgb("#0ea5e9"))[hyperlink]] text.]
