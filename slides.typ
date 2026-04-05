@@ -140,7 +140,7 @@
 
 == At face value, this is *cursed*.
 
-#slide(composer: (1.6fr, 1fr))[
+#slide(composer: (1.8fr, 1fr))[
   #v(1fr)
   *Every mutation requires:*
   - a memory copy of the *entire* collection.
@@ -155,17 +155,24 @@
 
   #v(1fr)
 ][
-  #place(top + right, dy: 40pt, image("images/cursed.png", height: 110%))
+  #place(top + right, dx: 30pt, dy: -20pt, image("images/cursed.png", height: 120%, width: 120%))
 ]
 
+#slide(
+  config: config-page(
+    header: none,
+    background: image("images/throw fruit.png", width: 100%, height: 100%, fit: "cover"),
+  ),
+)[~]
 
 == But maybe it's not as bad as it looks?
 
-#slide(composer: (1fr, 1.6fr))[
-  #place(top + left, dx: 0pt, dy: -40pt, image("images/duck.png", height: 110%))
+#slide(composer: (1fr, 1.8fr))[
+  #place(top + left, dx: -32pt, dy: -40pt, image("images/duck.png", height: 120%))
 ][
   *Write volume is manageable:*
   - individual writes are small _(2--8 kB)_
+    - Compressed further 2--4x by `sqlite-compression`
   - total data per event is _\~10 MB_.
     - SQLite can read and append databases of this size in milliseconds.
 
@@ -175,12 +182,48 @@
   - Via Typed `@dataclass` structs
     - (Modern equivalent: `Pydantic` models.)
   - No impedance mismatch between in-memory and on-disk formats
-  - type checking on deserialization
 ]
 
 
+#slide(
+  config: config-page(header: none),
+  composer: (1.5fr, 1fr),
+)[
+  #place(center + horizon, dx: 0pt, dy: 0pt, image(
+    "images/secretly brilliant.png",
+    height: 100%,
+    width: 100%,
+    fit: "cover",
+  ))
+][
+  #text(size: 1.6em, weight: "semibold")[#emph[What if its...]]
+  #pause
+
+  #align(right)[#text(font: "Lobster", size: 1.9em)[secretly brilliant?]]
+]
+
+
+== Why it is secretly brilliant
+
+
+#slide(composer: (1fr, 1fr))[
+  #v(1fr)
+  *Every mutation requires:*
+  - a memory copy of the *entire* collection.
+  - serializing the *entire* new collection to JSON
+  - writing this to SQLite.
+  #v(1fr)
+  *Also:*
+  - SQLite acts as a non-judgmental append log.
+  - The schema is enforced by vibes (Python types)
+  - It's immutable, right up until disk space notices.
+  - Storage cost scales with history, not just current state.
+
+  #v(1fr)
+][
+]
+
 #slide[
-  Why it is secretly brilliant:
 
   - Mutations copy references, not data, so updates stay cheap
   - One immutable source of truth means no denormalization or sync bugs
