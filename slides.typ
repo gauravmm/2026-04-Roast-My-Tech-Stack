@@ -46,7 +46,7 @@
   main-text-color: rgb("#333333"),
   progress-bar-background: rgb(172, 193, 218),
   config-info(
-    title: [#text(font: "Lobster", fill: rgb("#1c58a1"))[Visigoth.ai] Data Storage],
+    title: [#Visigothai Data Storage],
     subtitle: [Roast My Tech Stack],
     author: [Dr. Gaurav Manek],
     date: "2026-04-16",
@@ -144,7 +144,7 @@
 
   #v(1fr)
 ][
-  #place(top + right, dx: 30pt, dy: -20pt, image("images/cursed.png", height: 120%, width: 120%))
+  #place(top + right, dx: 40pt, dy: -20pt, image("images/cursed.png", height: 120%, width: 120%))
 ]
 
 //
@@ -180,7 +180,7 @@
 == What if it's secretly brilliant?
 
 #slide(composer: (1fr, 1.8fr))[
-  #place(bottom + left, dx: -32pt, dy: 32pt, image("images/duck.png", height: 110%, width: 110%))
+  #place(bottom + left, dx: -40pt, dy: 32pt, image("images/duck.png", height: 110%, width: 110%))
 ][
   *Write volume is manageable:*
   - individual writes are small _(2--8 kB)_
