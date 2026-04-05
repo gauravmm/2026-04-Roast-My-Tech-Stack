@@ -6,7 +6,7 @@
   #set text(fill: luma(220), size: 0.85em)
   #raw(
     block: true,
-    "
+    "sqlite> SELECT * FROM data;
 ┌──────────┬───┬─────────────────────────┐
 │  bucket  │ v │           data          │
 ├──────────┼───┼─────────────────────────┤
