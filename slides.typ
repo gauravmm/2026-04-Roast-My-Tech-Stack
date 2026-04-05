@@ -177,6 +177,7 @@
 ]
 
 
+== What if it's secretly brilliant?
 
 #slide(composer: (1fr, 1.8fr))[
   #place(bottom + left, dx: -32pt, dy: 32pt, image("images/duck.png", height: 110%, width: 110%))
@@ -218,9 +219,7 @@
   - Caching is trivial
     - `weakRef` allows us to cache derived data with automatic invalidation
     - no complex cache coherence checks
-  #pause
   - Cheap copy-on-write
-    - $cal(O)(n)$ #sym.arrow $cal(O)(1)$ copy for flat structures.
 
 ][#pause
   *DB Structure gives us:*
