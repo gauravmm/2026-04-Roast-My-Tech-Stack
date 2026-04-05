@@ -30,18 +30,6 @@
 
 #show strong: it => text(weight: 700, it.body)
 
-#let focus-slide(align: horizon + center, body) = _focus-slide(
-  align: align,
-  config: config-page(
-    background: place(top + left, rect(
-      width: 100%,
-      height: 100%,
-      stroke: none,
-      fill: tiling(size: (240pt, 240pt), image("assets/app-bkg.svg", width: 240pt, height: 240pt)),
-    )),
-  ),
-  body,
-)
 #let plain-focus-slide(align: horizon + center, body) = _focus-slide(
   align: align,
   config: config-page(fill: rgb("#fcfcfa")),
@@ -159,31 +147,16 @@
   #place(top + right, dx: 30pt, dy: -20pt, image("images/cursed.png", height: 120%, width: 120%))
 ]
 
+//
+// Denouement: why this isn't actually cursed at all, and is in fact brilliant.
+//
+
 #slide(
   config: config-page(
     header: none,
     background: image("images/throw fruit.png", width: 100%, height: 100%, fit: "cover"),
   ),
 )[~]
-
-== But maybe it's not as bad as it looks?
-
-#slide(composer: (1fr, 1.8fr))[
-  #place(top + left, dx: -32pt, dy: -40pt, image("images/duck.png", height: 120%))
-][
-  *Write volume is manageable:*
-  - individual writes are small _(2--8 kB)_
-    - Compressed further 2--4x by `sqlite-compression`
-  - total data per event is _\~10 MB_.
-    - SQLite can read and append databases of this size in milliseconds.
-
-  #pause
-
-  *Schema enforcement:*
-  - Via Typed `@dataclass` structs
-    - (Modern equivalent: `Pydantic` models.)
-  - No impedance mismatch between in-memory and on-disk formats
-]
 
 
 #slide(
@@ -202,6 +175,34 @@
 
   #align(right)[#text(font: "Lobster", size: 1.9em)[secretly brilliant?]]
 ]
+
+
+
+#slide(composer: (1fr, 1.8fr))[
+  #place(bottom + left, dx: -32pt, dy: 32pt, image("images/duck.png", height: 110%, width: 110%))
+][
+  *Write volume is manageable:*
+  - individual writes are small _(2--8 kB)_
+    - Compressed further 2--4x by `sqlite-compression`
+  - total data per database is _\~10 MB_.
+    - SQLite can read/append our data in milliseconds.
+
+  #pause
+
+  *Schema enforcement:*
+  - Via Typed `@dataclass` structs
+    - (Modern equivalent: `Pydantic` models.)
+  - No impedance mismatch between in-memory and on-disk formats
+
+  #pause
+  #v(1fr)
+  #callout[
+    #align(center)[
+      Remember the *Immutability*?
+    ]
+  ]
+]
+
 
 
 == Immutability gives us
@@ -241,26 +242,28 @@
 #slide(
   config: config-page(
     header: none,
-    background: image("images/conclusion.png", width: 100%, height: 100%, fit: "cover"),
+    background: box(width: 100%, height: 100%, clip: true)[
+      #place(
+        top + center,
+        image("images/conclusion.png", width: 100%, height: 100%, fit: "cover"),
+      )
+    ],
   ),
-)[~]
-
-#focus-slide(align: top)[
+)[
   #grid(
     columns: (1.2fr, 0.8fr),
     align: (center, left),
     column-gutter: 2.5em,
     [
       *Cursed in theory.*
-      #v(1fr)
-      #include "figures/ending.typ"
-      #v(1fr)
 
       *Excellent for the workload.*
+
+      #v(1fr)
     ],
-    [
+    [ #pause
       #align(center + horizon)[
-        #box(fill: white, inset: 1em, radius: .25em, stroke: 2pt + rgb(172, 193, 218))[
+        #box(fill: color.rgb("#fff"), inset: 1em, radius: .25em, stroke: 2pt + color.rgb("#444"))[
           #link("https://www.gauravmanek.com/lectures/2026/roast-my-tech-stack/")[
             #tiaoma.qrcode(
               "https://www.gauravmanek.com/lectures/2026/roast-my-tech-stack/",
