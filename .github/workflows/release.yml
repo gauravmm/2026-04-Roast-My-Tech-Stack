@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: typst-community/setup-typst@v3
-      - run: typst compile slides.typ slides.pdf
+      - run: typst compile --font-path .fonts --ignore-system-fonts slides.typ slides.pdf
         working-directory: .
       - uses: actions/upload-artifact@v4
         with:
