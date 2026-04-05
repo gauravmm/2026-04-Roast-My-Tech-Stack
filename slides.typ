@@ -4,6 +4,7 @@
 )
 #import "@preview/cetz:0.4.2"
 #import "@preview/dati-basati:0.1.0" as db
+#import "@preview/tiaoma:0.3.0"
 
 #let accent(body) = text(fill: rgb("#1c58a1"), body)
 #let callout(body) = block(
@@ -203,41 +204,73 @@
 ]
 
 
-== Why it is secretly brilliant
+== Immutability gives us
 
 
-#slide(composer: (1fr, 1fr))[
+#slide(composer: (1fr, 1fr), align: top)[
+  - Core business logic code is pure and deterministic
+    - \~3600 SLOC #sym.arrow \~400 SLOC
+    - easy to test, debug, and reason about
+      - with \~95% test coverage.
+    - *zero* bugs in core scheduling logic since 2020.
+  #pause
+  - Caching is trivial
+    - `weakRef` allows us to cache derived data with automatic invalidation
+    - no complex cache coherence checks
+  #pause
+  - Cheap copy-on-write
+    - $cal(O)(n)$ #sym.arrow $cal(O)(1)$ copy for flat structures.
+
+][#pause
+  *DB Structure gives us:*
+  - Effortless rollback and undo/redo.
+  - Reproducible event history for debugging and analytics.
+  - Compact history by \"squashing\" small deltas (by deleting them).
+
+  #pause
   #v(1fr)
-  *Every mutation requires:*
-  - a memory copy of the *entire* collection.
-  - serializing the *entire* new collection to JSON
-  - writing this to SQLite.
-  #v(1fr)
-  *Also:*
-  - SQLite acts as a non-judgmental append log.
-  - The schema is enforced by vibes (Python types)
-  - It's immutable, right up until disk space notices.
-  - Storage cost scales with history, not just current state.
-
-  #v(1fr)
-][
-]
-
-#slide[
-
-  - Mutations copy references, not data, so updates stay cheap
-  - One immutable source of truth means no denormalization or sync bugs
-  - Any pointer is a frozen snapshot, so concurrent reads are trivial
-  - Full version history makes rollback and undo effectively free
-  - Derived data can be cached aggressively with easy invalidation
-  - A single row reproduces the whole application state, which is wonderful for testing
-  - The business logic becomes pure and deterministic, which made the core code *much* smaller
-]
-
-#focus-slide[
-  The quality of a storage design depends more on actual workload than theoretical aesthetics.
-
+  #callout[
+    #align(center)[
+      We've reinvented\
+      *Functional Programming!*
+    ]
+  ]
   #v(1em)
+]
 
-  Here, trading efficiency for simplicity made the system easier to build, reason about, and maintain.
+#slide(
+  config: config-page(
+    header: none,
+    background: image("images/conclusion.png", width: 100%, height: 100%, fit: "cover"),
+  ),
+)[~]
+
+#focus-slide(align: top)[
+  #grid(
+    columns: (1.2fr, 0.8fr),
+    align: (center, left),
+    column-gutter: 2.5em,
+    [
+      *Cursed in theory.*
+      #v(1fr)
+      #include "figures/ending.typ"
+      #v(1fr)
+
+      *Excellent for the workload.*
+    ],
+    [
+      #align(center + horizon)[
+        #box(fill: white, inset: 1em, radius: .25em, stroke: 2pt + rgb(172, 193, 218))[
+          #link("https://www.gauravmanek.com/lectures/2026/roast-my-tech-stack/")[
+            #tiaoma.qrcode(
+              "https://www.gauravmanek.com/lectures/2026/roast-my-tech-stack/",
+              options: (scale: 4.0),
+              width: 8cm,
+            )
+          ]
+          *Scan for more!*
+        ]
+      ]
+    ],
+  )
 ]
